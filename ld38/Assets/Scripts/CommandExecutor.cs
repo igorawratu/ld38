@@ -11,10 +11,9 @@ public class CommandExecutor{
 		commands_ = new List<Command>();
 	}
 
-	public void AddCommand(Command command, int position)
+	public void AddCommand(Command command)
 	{
-		position = Math.Max(0, Math.Min(commands_.Count, position));
-		commands_.Insert(position, command);
+		commands_.Add(command);
 	}
 
 	public void RemoveCommand(Command command)

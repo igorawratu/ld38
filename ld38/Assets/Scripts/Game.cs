@@ -54,7 +54,7 @@ public class Game : MonoBehaviour {
 			reference_gridcell_rt.SetParent(reference_parent_rt, false);
 
 			ui_grid_[i] = gridcell.GetComponent<Image>();
-			reference_ui_grid_[i] = gridcell.GetComponent<Image>();
+			reference_ui_grid_[i] = referencegridcell.GetComponent<Image>();
 		}
 	}
 
@@ -166,11 +166,11 @@ public class Game : MonoBehaviour {
 		return true;
 	}
 
-	public void AddCommand(Command command, int index)
+	public void AddCommand(Command command)
 	{
 		foreach(var executor in executors_)
 		{
-			executor.AddCommand(command, index);
+			executor.AddCommand(command);
 		}
 		commands_.Add(command);
 	}
