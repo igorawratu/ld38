@@ -5,13 +5,10 @@ using System.Collections;
 
 public class CommandExecutor{
 	public List<Command> commands_;
-	public int current_command_;
-	public bool Completed { get; set; }
 
 	// Use this for initialization
 	public CommandExecutor() {
 		commands_ = new List<Command>();
-		Completed = true;
 	}
 
 	public void AddCommand(Command command, int position)
@@ -23,6 +20,11 @@ public class CommandExecutor{
 	public void RemoveCommand(Command command)
 	{
 		commands_.Remove(command);
+	}
+
+	public void RemoveCommands()
+	{
+		commands_.Clear();
 	}
 
 	public void Execute(int x, int y)

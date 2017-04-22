@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-public class Command : MonoBehaviour{
+public class Command : MonoBehaviour {
 	public enum CommandType { GreaterThan, LessThan, EqualTo, Plus, Minus, Modulo, Multiply, Divide, SetColor }
 	public CommandType command_type_;
 	public int A { get; set; }
@@ -35,7 +35,7 @@ public class Command : MonoBehaviour{
 		command_delegates_[CommandType.Divide] = (int a, int b, int x, int y) => 
 			SystemState.Instance.r0[SystemState.Instance.grid_dimensions_ * y + x] = a % b;
 		command_delegates_[CommandType.SetColor] = (int a, int b, int x, int y) =>
-			SystemState.Instance.Grid[SystemState.Instance.grid_dimensions_ * y + x] = Color.black;
+			SystemState.Instance.Grid[SystemState.Instance.grid_dimensions_ * y + x] = true;
 
 		A = 0;
 		B = 0;

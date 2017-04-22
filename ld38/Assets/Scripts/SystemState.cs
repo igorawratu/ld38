@@ -32,8 +32,8 @@ public class SystemState : Singleton<SystemState> {
 		}
 	}
 
-	private Color[] grid_;
-	public Color[] Grid {
+	private bool[] grid_;
+	public bool[] Grid {
 		get
 		{
 			if (grid_ == null)
@@ -59,20 +59,6 @@ public class SystemState : Singleton<SystemState> {
 		}
 	}
 
-	private Color[] color_list_;
-	public Color[] ColorList
-	{
-		get
-		{
-			if(color_list_ == null)
-			{
-				InitColorList();
-			}
-
-			return color_list_;
-		}
-	}
-
 	private void InitCommandCounters()
 	{
 		command_counter_ = new int[grid_dimensions_ * grid_dimensions_];
@@ -84,10 +70,10 @@ public class SystemState : Singleton<SystemState> {
 
 	private void InitGrid()
 	{
-		grid_ = new Color[grid_dimensions_ * grid_dimensions_];
+		grid_ = new bool[grid_dimensions_ * grid_dimensions_];
 		for(int i = 0; i < grid_dimensions_ * grid_dimensions_; ++i)
 		{
-			grid_[i] = Color.white;
+			grid_[i] = false;
 		}
 	}
 
@@ -109,14 +95,6 @@ public class SystemState : Singleton<SystemState> {
 		}
 	}
 
-	void InitColorList()
-	{
-		color_list_ = new Color[2] {
-			 Color.white,
-			 Color.black
-		};
-	}
-
 	// Use this for initialization
 	void Start () {
 		Reset();
@@ -125,7 +103,6 @@ public class SystemState : Singleton<SystemState> {
 	public void Reset()
 	{
 		InitGrid();
-		InitColorList();
 		InitR0();
 		InitConditionals();
 		InitCommandCounters();
