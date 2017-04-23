@@ -42,11 +42,11 @@
 
 		fixed4 frag(v2f i) : SV_Target
 		{
-			float xLine = (sin(_Time.y) + 1) / 2;
-			float yLine = (sin(_Time.x * 3.14) + 1) / 2;
+			float xLine = (sin(_Time.y / 2) + 1) / 2;
+			float yLine = (sin(_Time.x) + 1) / 2;
 
-			if (abs(i.uv.x - xLine) < 0.01 || abs(i.uv.y - yLine) < 0.01) {
-				return fixed4(1, 0.0, 0.0, 1);
+			if (abs(i.uv.x - xLine) < 0.0025 || abs(i.uv.y - yLine) < 0.0025) {
+				return fixed4(0, 1, 0, 1);
 			}
 
 			return fixed4(0, 0, 0, 1);
