@@ -14,7 +14,6 @@ public class CommandPlacer : MonoBehaviour {
     public GameObject setcolor_prefab_;
 
     public GameObject commands_parent_;
-    public float command_height_ = 20f;
 
     private List<GameObject> current_commands_;
 
@@ -37,12 +36,11 @@ public class CommandPlacer : MonoBehaviour {
         for(int i = 0; i < current_commands_.Count; ++i)
         {
             var rt = current_commands_[i].GetComponent<RectTransform>();
-            rt.SetParent(null);
+			float command_height_ = rt.rect.height;
 
+			rt.SetParent(null);
             rt.position = new Vector3(0, i * (command_height_ + 5f), 0);
-            rt.sizeDelta = new Vector2(rt.sizeDelta.x, command_height_);
-
-            rt.SetParent(parent_rt);
+            rt.SetParent(parent_rt, false);
         }
     }
 
@@ -84,8 +82,10 @@ public class CommandPlacer : MonoBehaviour {
 
         current_commands_.Add(command);
         game_.AddCommand(command.GetComponent<Command>());
+		command.GetComponent<RectTransform>().SetParent(commands_parent_.GetComponent<RectTransform>());
 
-        OrganizeCommands();
+
+		OrganizeCommands();
     }
 
     public void RemoveCommand(GameObject command)

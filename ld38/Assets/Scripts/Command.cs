@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 using System.Collections.Generic;
 
 public class Command : MonoBehaviour {
 	public enum CommandType { GreaterThan, LessThan, EqualTo, Plus, Minus, Modulo, Multiply, Divide, SetColor }
 	public CommandType command_type_;
-	public int A { get; set; }
-	public int B { get; set; }
-
-	public enum ValueType { Constant, X, Y, R0 }
-	public ValueType aValueType;
-	public ValueType bValueType;
+	public InputField input_field_a_;
+	public InputField input_field_b_;
 
 	private delegate void CommandDelegate(int a, int b, int x, int y);
 	private Dictionary<CommandType, CommandDelegate> command_delegates_;
@@ -29,62 +26,70 @@ public class Command : MonoBehaviour {
 		command_delegates_[CommandType.Minus] = (int a, int b, int x, int y) => 
 			SystemState.Instance.r0[SystemState.Instance.grid_dimensions_ * y + x] = a - b;
 		command_delegates_[CommandType.Modulo] = (int a, int b, int x, int y) => 
-			SystemState.Instance.r0[SystemState.Instance.grid_dimensions_ * y + x] = a % b;
+			SystemState.Instance.r0[SystemState.Instance.grid_dimensions_ * y + x] = b == 0 ? 0 : a % b;
 		command_delegates_[CommandType.Multiply] = (int a, int b, int x, int y) => 
 			SystemState.Instance.r0[SystemState.Instance.grid_dimensions_ * y + x] = a * b;
 		command_delegates_[CommandType.Divide] = (int a, int b, int x, int y) => 
-			SystemState.Instance.r0[SystemState.Instance.grid_dimensions_ * y + x] = a % b;
+			SystemState.Instance.r0[SystemState.Instance.grid_dimensions_ * y + x] = b == 0 ? 0 : a / b;
 		command_delegates_[CommandType.SetColor] = (int a, int b, int x, int y) =>
 			SystemState.Instance.Grid[SystemState.Instance.grid_dimensions_ * y + x] = true;
-
-		A = 0;
-		B = 0;
-
-		aValueType = ValueType.Constant;
-		bValueType = ValueType.Constant;
 	}
 
 	public void Execute(int x, int y)
 	{
 		int a, b;
 
-		switch (aValueType)
+		if (input_field_a_ != null)
 		{
-			case ValueType.Constant:
-				a = A;
-				break;
-			case ValueType.R0:
-				a = SystemState.Instance.r0[SystemState.Instance.grid_dimensions_ * y + x];
-				break;
-			case ValueType.X:
-				a = x;
-				break;
-			case ValueType.Y:
-				a = y;
-				break;
-			default:
-				a = A;
-				break;
-		}
+			var texta = input_field_a_.text;
 
-		switch (bValueType)
-		{
-			case ValueType.Constant:
-				b = B;
-				break;
-			case ValueType.R0:
-				b = SystemState.Instance.r0[SystemState.Instance.grid_dimensions_ * y + x];
-				break;
-			case ValueType.X:
-				b = x;
-				break;
-			case ValueType.Y:
-				b = y;
-				break;
-			default:
-				b = B;
-				break;
+			if (texta == "x")
+			{
+				a = x;
+			}
+			else if (texta == "y")
+			{
+				a = y;
+			}
+			else if (texta == "r")
+			{
+				a = SystemState.Instance.r0[SystemState.Instance.grid_dimensions_ * y + x];
+			}
+			else
+			{
+				int n;
+				bool isNumeric = int.TryParse(texta, out n);
+
+				a = isNumeric ? n : 0;
+			}
 		}
+		else a = 0;
+
+		if (input_field_b_ != null)
+		{
+			var textb = input_field_b_.text;
+
+			if (textb == "x")
+			{
+				b = x;
+			}
+			else if (textb == "y")
+			{
+				b = y;
+			}
+			else if (textb == "r")
+			{
+				b = SystemState.Instance.r0[SystemState.Instance.grid_dimensions_ * y + x];
+			}
+			else
+			{
+				int n;
+				bool isNumeric = int.TryParse(textb, out n);
+
+				b = isNumeric ? n : 0;
+			}
+		}
+		else b = 0;
 
 		command_delegates_[command_type_](a, b, x, y);
 	}
