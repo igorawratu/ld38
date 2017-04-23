@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 54e3ce950fd076c49ac32cf4d5dbf929
+timeCreated: 1492965069
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: InversionzItalic
+  fontNames:
+  - InversionzItalic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

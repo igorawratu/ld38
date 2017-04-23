@@ -16,11 +16,11 @@ public class Command : MonoBehaviour {
 	{
 		command_delegates_ = new Dictionary<CommandType, CommandDelegate>();
 		command_delegates_[CommandType.GreaterThan] = (int a, int b, int x, int y) => 
-			SystemState.Instance.c[SystemState.Instance.grid_dimensions_ * y + x] = a > b;
+			SystemState.Instance.c[SystemState.Instance.grid_dimensions_ * y + x] = SystemState.Instance.c[SystemState.Instance.grid_dimensions_ * y + x] && a > b;
 		command_delegates_[CommandType.LessThan] = (int a, int b, int x, int y) => 
-			SystemState.Instance.c[SystemState.Instance.grid_dimensions_ * y + x] = a < b;
+			SystemState.Instance.c[SystemState.Instance.grid_dimensions_ * y + x] = SystemState.Instance.c[SystemState.Instance.grid_dimensions_ * y + x] && a < b;
 		command_delegates_[CommandType.EqualTo] = (int a, int b, int x, int y) => 
-			SystemState.Instance.c[SystemState.Instance.grid_dimensions_ * y + x] = a == b;
+			SystemState.Instance.c[SystemState.Instance.grid_dimensions_ * y + x] = SystemState.Instance.c[SystemState.Instance.grid_dimensions_ * y + x] && a == b;
 		command_delegates_[CommandType.Plus] = (int a, int b, int x, int y) => 
 			SystemState.Instance.r0[SystemState.Instance.grid_dimensions_ * y + x] = a + b;
 		command_delegates_[CommandType.Minus] = (int a, int b, int x, int y) => 

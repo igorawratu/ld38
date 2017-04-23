@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: ce43ce5a0367a3a45a6e0fdada5ff5f9
+timeCreated: 1492965069
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Imagine Font
+  fontNames:
+  - Imagine Font
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 393d90bcf3abf6f4889a3ae03f6df01d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

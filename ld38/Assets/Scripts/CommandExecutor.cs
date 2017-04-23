@@ -36,10 +36,23 @@ public class CommandExecutor{
                 commands_[i].command_type_ != Command.CommandType.GreaterThan &&
                 commands_[i].command_type_ != Command.CommandType.LessThan)
 			{
-				continue;
+                if (commands_[i].command_type_ != Command.CommandType.EqualTo &&
+                commands_[i].command_type_ != Command.CommandType.GreaterThan &&
+                commands_[i].command_type_ != Command.CommandType.LessThan)
+                {
+                    SystemState.Instance.c[coord] = true;
+                }
+
+                continue;
 			}
 
 			commands_[i].Execute(x, y);
+            if(commands_[i].command_type_ != Command.CommandType.EqualTo &&
+                commands_[i].command_type_ != Command.CommandType.GreaterThan &&
+                commands_[i].command_type_ != Command.CommandType.LessThan)
+            {
+                SystemState.Instance.c[coord] = true;
+            }
 			SystemState.Instance.CommandCounter[coord]++;
 		}
 	}
