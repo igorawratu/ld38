@@ -31,7 +31,10 @@ public class CommandExecutor{
 		int coord = x + y * SystemState.Instance.grid_dimensions_;
 		for (int i = 0; i < commands_.Count; ++i)
 		{
-			if (!SystemState.Instance.c[coord])
+			if (!SystemState.Instance.c[coord] && 
+                commands_[i].command_type_ != Command.CommandType.EqualTo &&
+                commands_[i].command_type_ != Command.CommandType.GreaterThan &&
+                commands_[i].command_type_ != Command.CommandType.LessThan)
 			{
 				continue;
 			}
